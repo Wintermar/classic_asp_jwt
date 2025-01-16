@@ -18,6 +18,14 @@ dAttributes.Add "iat", SecsSinceEpoch
 dAttributes.Add "name", "Roger"
 dAttributes.Add "email", "roger@example.com"
 
+' nested dictionary
+set dNestedAttribute=Server.CreateObject("Scripting.Dictionary")
+dNestedAttribute.Add "street", "21 2nd Street
+dNestedAttribute.Add "city, "New York
+dNestedAttribute.Add "state, "NY
+dNestedAttribute.Add "postalCode, "10221"
+dAttributes.Add "address", dNestedAttribute
+
 sToken = JWTEncode(dAttributes, sKey)
 %>
 ```
