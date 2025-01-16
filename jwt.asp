@@ -6,7 +6,7 @@ Function JWTEncode(dPayload, sSecret)
   Dim sPayload, sHeader, sBase64Payload, sBase64Header
   Dim sSignature, sToken
 
-  sPayload = DictionaryToJSONString(dPayload)
+  sPayload = DictionaryToJSON(dPayload)
   sHeader  = JWTHeaderDictionary()
 
   sBase64Payload = SafeBase64Encode(sPayload)
@@ -40,6 +40,6 @@ Function JWTHeaderDictionary()
   dOut.Add "typ", "JWT"
   dOut.Add "alg", "HS256"
 
-  JWTHeaderDictionary = DictionaryToJSONString(dOut)
+  JWTHeaderDictionary = DictionaryToJSON(dOut)
 End Function
 %>

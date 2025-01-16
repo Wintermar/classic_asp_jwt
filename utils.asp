@@ -24,6 +24,29 @@ Function Base64ToSafeBase64(sIn)
   Base64ToSafeBase64 = sOut
 End Function
 
+Function DictionaryToJSON(dict)
+  Dim json, key, value
+  json = "{"
+  For Each key In dict.Keys
+    If IsObject(dict(key)) Then
+      ' If the value is a nested dictionary, recursively call the function
+      json = json & """" & key & """: " & DictionaryToJSON(dict(key)) & ","
+    ElseIf IsNumeric(dict(key)) Then
+      ' If the dict(key) is numeric, add it without quotes
+      json = json & """" & key & """: " & dict(key) & ","
+    Else
+      ' If the dict(key) is a string, add it with quotes
+      json = json & """" & key & """: """ & dict(key) & ""","
+    End If
+  Next
+  ' Remove the trailing comma and close the JSON object
+  If Right(json, 1) = "," Then
+    json = Left(json, Len(json) - 1)
+  End If
+  json = json & "}"
+  DictionaryToJSON = json
+End Function
+
 ' Converts an ASP dictionary to a JSON string
 Function DictionaryToJSONString(dDictionary)
   Set oJSONpayload = New aspJSON
